@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-// import { connect } from 'dva';
 import ProductList from '../components/ProductList';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'dva';
 
 // https://react-redux.js.org/next/api/hooks
 
