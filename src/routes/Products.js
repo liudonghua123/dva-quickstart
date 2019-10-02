@@ -1,31 +1,29 @@
-import React, { Component } from 'react';
-import { connect } from 'dva';
+import React, { useEffect } from 'react';
+// import { connect } from 'dva';
 import ProductList from '../components/ProductList';
+import { useSelector, useDispatch } from 'react-redux';
 
-@connect(({ products }) => ({
-  products,
-}))
-export default class Products extends Component {
-  componentDidMount() {
-    const { dispatch } = this.props;
+// https://react-redux.js.org/next/api/hooks
+
+export default function Products() {
+  console.info(`useDispatch: `, useDispatch);
+  const dispatch = useDispatch();
+  const products = useSelector(state => state.products);
+  useEffect(() => {
     dispatch({
       type: 'products/fetch',
     });
-  }
-  handleDelete = id => {
-    const { dispatch } = this.props;
+  },[]);
+  const handleDelete = id => {
     dispatch({
       type: 'products/delete',
       payload: id,
     });
   };
-  render() {
-    const { products } = this.props;
-    return (
-      <div>
-        <h2>List of Products</h2>
-        <ProductList onDelete={this.handleDelete} products={products} />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h2>List of Products</h2>
+      <ProductList onDelete={handleDelete} products={products} />
+    </div>
+  );
 }
